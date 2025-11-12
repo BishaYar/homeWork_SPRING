@@ -4,14 +4,15 @@ import java.io.PrintStream;
 import java.util.Arrays;
 
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class ProductBasket {
     private final Product[] product = new Product[5];
 
     public void addProductInBasket(Product addProduct) {
-        for(int i = 0; i < this.product.length; ++i) {
-            if (this.product[i] == null) {
-                this.product[i] = addProduct;
+        for(int i = 0; i < product.length; ++i) {
+            if (product[i] == null) {
+                product[i] = addProduct;
                 break;
             }
         }
@@ -31,18 +32,21 @@ public class ProductBasket {
 
     public void printBasket() {
         int i = 0;
+        int countSpecProd = 0;
 
-        for(Product prod : this.product) {
+        for(Product prod : product) {
             if (prod != null) {
-                ++i;
-                PrintStream var10000 = System.out;
-                String var10001 = prod.getNameProduct();
-                var10000.println("<" + var10001 + ">: <" + prod.getPriceProduct() + ">");
+                System.out.println(prod.toString());
+                i++;
+                if (prod.isSpecial()) {
+                    countSpecProd++;
+                }
             }
         }
 
         if (i > 0) {
             System.out.println("Итого: " + this.getCostBasket());
+            System.out.println("Специальных товаров: <" + countSpecProd + ">");
         } else {
             System.out.println("В корзине пусто");
         }
