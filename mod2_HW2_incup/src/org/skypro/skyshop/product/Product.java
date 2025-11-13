@@ -1,17 +1,26 @@
 package org.skypro.skyshop.product;
 
-public abstract class Product {
+import org.skypro.skyshop.search.Searchable;
+
+public abstract class Product implements Searchable {
     protected final String nameProduct;
 
     protected Product(String nameProduct) {
         this.nameProduct = nameProduct;
     }
 
-    public abstract String getNameProduct();
-
     public abstract int getPriceProduct();
 
     public abstract String toString();
 
-    public abstract boolean isSpecial();
+    @Override
+    public String getText() {
+        return nameProduct;
+    }
+
+    @Override
+    public String getTypeContent() {
+        return "PRODUCT";
+    }
 }
+
