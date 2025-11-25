@@ -9,11 +9,6 @@ public class SimpleProduct extends Product {
     }
 
     @Override
-    public String getNameProduct() {
-        return nameProduct;
-    }
-
-    @Override
     public int getPriceProduct() {
         return priceProduct;
     }
@@ -23,8 +18,4 @@ public class SimpleProduct extends Product {
         return "<" + nameProduct + ">: <" + priceProduct + ">";
     }
 
-    @Override
-    public boolean isSpecial(){
-        return false;
-    }
 }
