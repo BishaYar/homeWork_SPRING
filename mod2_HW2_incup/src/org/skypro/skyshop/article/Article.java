@@ -20,9 +20,4 @@ public final class Article implements Searchable {
     public String getText() {
         return toString();
     }
-
-    @Override
-    public String getTypeContent() {
-        return "ARTICLE";
-    }
 }

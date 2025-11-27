@@ -12,19 +12,39 @@ public class App {
         SearchEngine searchEngine = new SearchEngine(10);
 
         System.err.println("==== Демонстрация проверки данных ПУСТОЙ СТРОКИ class SimpleProduct ====");
-        SimpleProduct prod1 = new SimpleProduct("", 70);
+        try {
+            SimpleProduct prod1 = new SimpleProduct("", 70);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
         System.err.println("==== Демонстрация проверки данных NULL class SimpleProduct ====");
-        SimpleProduct prod2 = new SimpleProduct(null, 1);
+        try {
+            SimpleProduct prod2 = new SimpleProduct(null, 1);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
         System.err.println("==== Демонстрация проверки цены class SimpleProduct ====");
-        SimpleProduct prod3 = new SimpleProduct("молоко", 0);
+        try {
+            SimpleProduct prod2 = new SimpleProduct("молоко", 0);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
         System.err.println("==== Демонстрация проверки данных завешенного % скидки class DiscountedProduct ====");
-        DiscountedProduct prod4 = new DiscountedProduct("печенье", 50,120);
+        try {
+            DiscountedProduct prod4 = new DiscountedProduct("печенье", 50,120);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
         System.err.println("==== Демонстрация проверки цены class DiscountedProduct ====");
-        DiscountedProduct prod5 = new DiscountedProduct("рыба", 0, 70);
+        try {
+            DiscountedProduct prod5 = new DiscountedProduct("рыба", 0, 70);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
         Article article1 = new Article("кофе", "кофе темной обжарки, с кислинкой");
         Article article2 = new Article("кофе", "кофе растворимый. кофе ароматный.");
@@ -52,7 +72,6 @@ public class App {
         } catch (BestResultNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
 

@@ -24,7 +24,7 @@ public class SearchEngine {
     public Searchable findSearchableObj(String search) {
         int [] maxRepeat = new int[searchables.length];
         int max = 0;
-        Searchable searchFind = null;
+        Searchable searchFind;
 
         for (int i = 0; i < searchables.length; i++) {
             if (searchables[i] != null) {
@@ -40,23 +40,11 @@ public class SearchEngine {
             }
         }
 
-        try {
-            isNullObj(index, search);
-        } catch (BestResultNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        if (index != -1) {
-            searchFind = searchables[index];
-        }
+        if (index == -1) {
+            throw new BestResultNotFoundException("Совпадений не найдено для '" + search + "'");
+        } else searchFind = searchables[index];
 
         return searchFind;
-    }
-
-    public static void isNullObj(int index, String str) throws BestResultNotFoundException{
-        if (index == -1) {
-            throw new BestResultNotFoundException("Совпадений не найдено для '" + str + "'");
-        }
     }
 
     public int getSearchTerm(String strObj, String strFind) {
