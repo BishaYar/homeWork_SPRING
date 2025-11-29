@@ -4,19 +4,7 @@ public class SearchEngine {
     public Searchable[] searchables;
 
     public SearchEngine(int size) {
-       searchables = new Searchable[size];
-    }
-
-    public Searchable[] search(String findText){
-        Searchable[] searchable = new Searchable[5];
-        int i = 0;
-        for (Searchable search : searchables){
-            if (search != null && search.getText().contains(findText)) {
-                searchable[i] = search;
-                i++;
-            }
-        }
-        return searchable;
+        searchables = new Searchable[size];
     }
 
     public void addSearchable(Searchable search){
@@ -31,5 +19,43 @@ public class SearchEngine {
                 }
             }
         }
+    }
+
+    public Searchable findSearchableObj(String search) {
+        int [] maxRepeat = new int[searchables.length];
+        int max = 0;
+        Searchable searchFind;
+
+        for (int i = 0; i < searchables.length; i++) {
+            if (searchables[i] != null) {
+                maxRepeat[i] = getSearchTerm(searchables[i].toString(), search);
+            } else maxRepeat[i] = 0;
+        }
+
+        int index = -1;
+        for (int i = 0; i < searchables.length; i++){
+            if (max < maxRepeat[i]) {
+                max = maxRepeat[i];
+                index = i;
+            }
+        }
+
+        if (index == -1) {
+            throw new BestResultNotFoundException("Совпадений не найдено для '" + search + "'");
+        } else searchFind = searchables[index];
+
+        return searchFind;
+    }
+
+    public int getSearchTerm(String strObj, String strFind) {
+        int index = 0;
+        int count = 0;
+        int indexStr = strObj.indexOf(strFind, index);
+        while (indexStr != -1) {
+            count++;
+            index = indexStr + strFind.length();
+            indexStr = strObj.indexOf(strFind, index);
+        }
+        return count;
     }
 }
