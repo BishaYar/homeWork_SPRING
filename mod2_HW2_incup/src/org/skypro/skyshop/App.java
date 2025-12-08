@@ -6,61 +6,21 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
-import java.util.LinkedList;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
 
-        SearchEngine searchEngine = new SearchEngine();
-
-        SimpleProduct prod1 = null;
-        try {
-            prod1 = new SimpleProduct("печенье", 70);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-        SimpleProduct prod2 = null;
-        try {
-            prod2 = new SimpleProduct("молоко", 50);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-        SimpleProduct prod3 = null;
-        try {
-            prod3 = new SimpleProduct("мед", 150);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-        SimpleProduct prod6 = new SimpleProduct("кофе растворимый", 100);
-        SimpleProduct prod7 = new SimpleProduct("кофе зерновой", 150);
-
-        DiscountedProduct prod4 = null;
-        try {
-            prod4 = new DiscountedProduct("колбаса", 120, 10);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-        DiscountedProduct prod5 = null;
-        try {
-            prod5 = new DiscountedProduct("кофе", 100, 20);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
         ProductBasket basket1 = new ProductBasket();
-        //1 Добавление продукта в корзину.
-        basket1.addProductInBasket(prod1);
-        basket1.addProductInBasket(prod2);
-        basket1.addProductInBasket(prod3);
-        basket1.addProductInBasket(prod4);
-        basket1.addProductInBasket(prod5);
-        basket1.addProductInBasket(prod6);
-        basket1.addProductInBasket(prod7);
+        //1 Добавление продукта в корзину
+        basket1.addProductInBasket("печенье", new SimpleProduct("печенье", 70));
+        basket1.addProductInBasket("молоко", new SimpleProduct("молоко", 50));
+        basket1.addProductInBasket("мед", new SimpleProduct("мед", 150));
+        basket1.addProductInBasket("колбаса", new DiscountedProduct("колбаса", 120, 10));
+        basket1.addProductInBasket("кофе", new DiscountedProduct("кофе", 100, 20));
+        basket1.addProductInBasket("кофе", new DiscountedProduct("кофе растворим", 80, 10));
 
         System.out.println("=== Печать содержимого корзины с товарами ===");
         basket1.printBasket();
@@ -80,10 +40,11 @@ public class App {
         Article article2 = new Article("кофе", "кофе растворимый. кофе ароматный.");
         Article article3 = new Article("кофе", "кофе в капсулах, ароматный, вкусный");
         Article article4 = new Article("кофе", "кофе растворимый, кофе гранулированный, 180гр");
-        Article article5 = new Article("кофе", "крем-кофе, кофе 100гр");
-        Article article6 = new Article("кофе", "кофе зерновой");
+        Article article5 = new Article("чай", "чай в пакетиках");
+        Article article6 = new Article("чай", "чай зеленый");
         Article article7 = new Article("чай", "чай черный");
 
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.addSearchable(article1);
         searchEngine.addSearchable(article2);
         searchEngine.addSearchable(article3);
@@ -95,11 +56,11 @@ public class App {
         //результат поиска
         System.out.println("==================== ПОЛОЖИТЕЛЬНЫЙ результат поиска =====================");
         String searchStr = "кофе";
-        System.out.println(searchEngine.findSearchableObj(searchStr));
+        printSearchList((TreeMap<String, Searchable>) searchEngine.findSearchableObj(searchStr));
 
         System.out.println("==================== ОТРИЦАТЕЛЬНЫЙ результат поиска =====================");
         searchStr = "бур";
-        System.out.println(searchEngine.findSearchableObj(searchStr));
+        printSearchList((TreeMap<String, Searchable>) searchEngine.findSearchableObj(searchStr));
 
     }
 
@@ -108,6 +69,12 @@ public class App {
             System.out.println("Список пуст");
         } else
             System.out.println(list);
+    }
+
+    public static void printSearchList(TreeMap<String, Searchable> map){
+        for(Map.Entry<String, Searchable> el : map.entrySet()){
+            System.out.println(el);
+        }
     }
 }
 

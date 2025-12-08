@@ -1,38 +1,44 @@
 package org.skypro.skyshop.basket;
 
-import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
-    LinkedList<Product> listProduct = new LinkedList<>();
+    Map<String, List<Product>> mapProdBasket = new HashMap<>();
     public LinkedList<Product> listDelProduct = new LinkedList<>();
 
-    public void addProductInBasket(Product product) {
-        listProduct.add(product);
+    public void addProductInBasket(String nameProd, Product product) {
+        mapProdBasket.computeIfAbsent(nameProd, k->new ArrayList<>()).add(product);
     }
 
     public LinkedList<Product> deleteProductInBasket(String name) {
-        Iterator<Product> iterator = listProduct.iterator();
+        for (Map.Entry<String, List<Product>> el : mapProdBasket.entrySet()) {
 
-        while (iterator.hasNext()){
-            Product el = iterator.next();
-            if (el.getText().equals(name)){
-                iterator.remove();
-                listDelProduct.add(el);
+            for (Product el1 : el.getValue()) {
+                if (el1.getText().equals(name)) {
+                    listDelProduct.add(el1);
+                }
             }
+
+            el.getValue().removeIf(s->s.getText().equals(name));
         }
+        for(Product el : listDelProduct){
+            mapProdBasket.remove(el.getText());
+        }
+
         return listDelProduct;
     }
 
     public int getCostBasket() {
         int cost = 0;
 
-        for(Product prod : listProduct) {
-            if (prod != null) {
-                cost += prod.getPriceProduct();
+        for (Map.Entry<String, List<Product>> el : mapProdBasket.entrySet())
+        {
+            for(Product prod : el.getValue()) {
+                if (prod != null) {
+                    cost += prod.getPriceProduct();
+                }
             }
         }
 
@@ -42,12 +48,11 @@ public class ProductBasket {
     public void printBasket() {
         int i = 0;
 
-        for(Product prod : listProduct) {
-            if (prod != null) {
-                ++i;
-                PrintStream var10000 = System.out;
-                String var10001 = prod.getText();
-                var10000.println("<" + var10001 + ">: <" + prod.getPriceProduct() + ">");
+        for (Map.Entry<String, List<Product>> el : mapProdBasket.entrySet())
+        {
+            if (el != null) {
+                i++;
+                System.out.println(el.getKey() + " " + el.getValue());
             }
         }
 
