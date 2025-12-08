@@ -12,7 +12,7 @@ public final class Article implements Searchable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return nameArticle + " " + textArticle;
     }
 
