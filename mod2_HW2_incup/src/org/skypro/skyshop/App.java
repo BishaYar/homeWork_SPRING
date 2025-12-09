@@ -3,6 +3,7 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
@@ -26,8 +27,6 @@ public class App {
 
         System.out.println("=== Печать удаленных товаров, товар есть в корзине ===");
         printEmptyDelList(basket1.deleteProductInBasket("мед"));
-
-        basket1.listDelProduct.clear();
 
         System.out.println("=== Печать удаленных товаров, товара нет в корзине ===");
         printEmptyDelList(basket1.deleteProductInBasket("бур"));
@@ -63,13 +62,12 @@ public class App {
 
     }
 
-    public static void printEmptyDelList(List<String> list){
-        if (list.isEmpty()) {
-            System.out.println("Список пуст");
-        } else {
-            for (String el : list){
-                System.out.println(el);
-            }
+    public static void printEmptyDelList(List<Product> list){
+        try {
+            System.out.println(list);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
         }
     }
 

@@ -6,24 +6,13 @@ import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
     private final Map<String, List<Product>> mapProdBasket = new HashMap<>();
-    public List<String> listDelProduct = new ArrayList<>();
 
     public void addProductInBasket(String nameProd, Product product) {
         mapProdBasket.computeIfAbsent(nameProd, k->new ArrayList<>()).add(product);
     }
 
-    public List<String> deleteProductInBasket(String name) {
-        List<String> keys = new ArrayList<>(mapProdBasket.keySet());
-        for (String key : keys) {
-            List<Product> products = mapProdBasket.get(key);
-            products.removeIf(product->product.getText().equals(name));
-
-            if (products.isEmpty()){
-                listDelProduct.add(key);
-                mapProdBasket.remove(key);
-            }
-        }
-        return listDelProduct;
+    public List<Product> deleteProductInBasket(String name) {
+        return mapProdBasket.remove(name);
     }
 
     public int getCostBasket() {
