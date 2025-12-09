@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SearchEngine {
-    Map<String, Searchable> treeMap = new TreeMap<>();
+    private final Map<String, Searchable> treeMap = new TreeMap<>();
 
     public void addSearchable(Searchable search){
         treeMap.put(search.getText(), search);

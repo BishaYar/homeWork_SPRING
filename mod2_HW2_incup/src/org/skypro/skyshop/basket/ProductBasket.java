@@ -5,28 +5,24 @@ import java.util.*;
 import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
-    Map<String, List<Product>> mapProdBasket = new HashMap<>();
-    public LinkedList<Product> listDelProduct = new LinkedList<>();
+    private final Map<String, List<Product>> mapProdBasket = new HashMap<>();
+    public List<String> listDelProduct = new ArrayList<>();
 
     public void addProductInBasket(String nameProd, Product product) {
         mapProdBasket.computeIfAbsent(nameProd, k->new ArrayList<>()).add(product);
     }
 
-    public LinkedList<Product> deleteProductInBasket(String name) {
-        for (Map.Entry<String, List<Product>> el : mapProdBasket.entrySet()) {
+    public List<String> deleteProductInBasket(String name) {
+        List<String> keys = new ArrayList<>(mapProdBasket.keySet());
+        for (String key : keys) {
+            List<Product> products = mapProdBasket.get(key);
+            products.removeIf(product->product.getText().equals(name));
 
-            for (Product el1 : el.getValue()) {
-                if (el1.getText().equals(name)) {
-                    listDelProduct.add(el1);
-                }
+            if (products.isEmpty()){
+                listDelProduct.add(key);
+                mapProdBasket.remove(key);
             }
-
-            el.getValue().removeIf(s->s.getText().equals(name));
         }
-        for(Product el : listDelProduct){
-            mapProdBasket.remove(el.getText());
-        }
-
         return listDelProduct;
     }
 
@@ -41,7 +37,6 @@ public class ProductBasket {
                 }
             }
         }
-
         return cost;
     }
 

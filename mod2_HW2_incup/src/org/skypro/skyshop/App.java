@@ -3,7 +3,6 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
@@ -64,11 +63,14 @@ public class App {
 
     }
 
-    public static void printEmptyDelList(LinkedList<Product> list){
+    public static void printEmptyDelList(List<String> list){
         if (list.isEmpty()) {
             System.out.println("Список пуст");
-        } else
-            System.out.println(list);
+        } else {
+            for (String el : list){
+                System.out.println(el);
+            }
+        }
     }
 
     public static void printSearchList(TreeMap<String, Searchable> map){
