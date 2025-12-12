@@ -29,14 +29,14 @@ public class App {
         printEmptyDelList(basket1.deleteProductInBasket("мед"));
 
         System.out.println("=== Печать удаленных товаров, товара нет в корзине ===");
-        printEmptyDelList(basket1.deleteProductInBasket("бур"));
+         printEmptyDelList(basket1.deleteProductInBasket("бур"));
 
         System.out.println("=== Печать содержимого корзины ===");
         basket1.printBasket();
 
         Article article1 = new Article("кофе", "кофе темной обжарки, с кислинкой");
-        Article article2 = new Article("кофе", "кофе растворимый. кофе ароматный.");
-        Article article3 = new Article("кофе", "кофе в капсулах, ароматный, вкусный");
+        Article article2 = new Article("кофе", "кофе автрастворимый. кофе ароматный.");
+        Article article3 = new Article("кофе", "кофе авкаапсулах, ароматный, вкусный");
         Article article4 = new Article("кофе", "кофе растворимый, кофе гранулированный, 180гр");
         Article article5 = new Article("чай", "чай в пакетиках");
         Article article6 = new Article("чай", "чай зеленый");
@@ -54,25 +54,25 @@ public class App {
         //результат поиска
         System.out.println("==================== ПОЛОЖИТЕЛЬНЫЙ результат поиска =====================");
         String searchStr = "кофе";
-        printSearchList((TreeMap<String, Searchable>) searchEngine.findSearchableObj(searchStr));
+        printSearchList((TreeSet<Searchable>) searchEngine.findSearchableObj(searchStr));
 
         System.out.println("==================== ОТРИЦАТЕЛЬНЫЙ результат поиска =====================");
         searchStr = "бур";
-        printSearchList((TreeMap<String, Searchable>) searchEngine.findSearchableObj(searchStr));
+        printSearchList((TreeSet<Searchable>) searchEngine.findSearchableObj(searchStr));
 
     }
 
-    public static void printEmptyDelList(List<Product> list){
+    public static void printEmptyDelList(Set<Product> set){
         try {
-            System.out.println(list);
+            System.out.println(set);
         }
         catch (NullPointerException e){
             e.printStackTrace();
         }
     }
 
-    public static void printSearchList(TreeMap<String, Searchable> map){
-        for(Map.Entry<String, Searchable> el : map.entrySet()){
+    public static void printSearchList(TreeSet<Searchable> set){
+        for(Searchable el : set){
             System.out.println(el);
         }
     }
