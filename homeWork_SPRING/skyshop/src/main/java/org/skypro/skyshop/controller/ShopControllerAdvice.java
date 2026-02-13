@@ -1,6 +1,7 @@
 package org.skypro.skyshop.controller;
 
 import org.skypro.skyshop.error.ShopError;
+import org.skypro.skyshop.exception.NoSuchProductException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

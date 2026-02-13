@@ -1,4 +1,4 @@
-package org.skypro.skyshop.controller;
+package org.skypro.skyshop.exception;
 
 public class NoSuchProductException extends RuntimeException {
 
