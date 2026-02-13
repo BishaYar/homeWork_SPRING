@@ -1,5 +1,6 @@
 package org.skypro.skyshop.service;
 
+import org.skypro.skyshop.exception.NoSuchProductException;
 import org.skypro.skyshop.model.basket.BasketItem;
 import org.skypro.skyshop.model.basket.ProductBasket;
 import org.skypro.skyshop.model.basket.UserBasket;
@@ -25,13 +26,10 @@ public class BasketService {
 
     public void addProductInBasket(UUID id) {
         Optional<Product> productOptional = storageService.getProductById(id);
-        try {
-            if (productOptional.isPresent()) {
-                productBasket.addProductInBasket(id);
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Продукта " + id + " нет в хранилище");
-        }
+        if (productOptional.isPresent()) {
+            productBasket.addProductInBasket(id);
+        } else
+            throw new NoSuchProductException("Товар " + id + " не найден.");
     }
 
     public UserBasket getUserBasket() {
@@ -41,7 +39,7 @@ public class BasketService {
                 .map( entry-> {
                     UUID idProd = entry.getKey();
                     int total = entry.getValue();
-                    Product product = storageService.getProductById(idProd).orElseThrow(() -> new IllegalArgumentException(
+                    Product product = storageService.getProductById(idProd).orElseThrow(() -> new NoSuchProductException(
                             "Inconsistent state: product " + idProd + " exists in basket but missing in storage"));
                     return new BasketItem(product, total);
                 })

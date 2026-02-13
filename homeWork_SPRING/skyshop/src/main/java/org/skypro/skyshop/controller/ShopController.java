@@ -36,6 +36,7 @@ public class ShopController {
     public Collection<Article>getAllArticles() {
         return storageService.getMapArticle();
     }
+
     @GetMapping("/basket/{id}")
     public String addProduct(@PathVariable("id") UUID id) {
         basketService.addProductInBasket(id);
