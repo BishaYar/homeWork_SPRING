@@ -15,6 +15,10 @@ public class StorageService {
     private final Map<UUID, Article> mapArticle = new HashMap<>();
 
     public StorageService() {
+        initStorage();
+    }
+//UUID.fromString("fe4273c8-7e75-4529-8ca0-59edf13d65a5")
+    public void initStorage() {
         UUID id = UUID.randomUUID();
         setMapProduct(id, new SimpleProduct(id, "печенье", 70));
         id = UUID.randomUUID();
@@ -44,7 +48,11 @@ public class StorageService {
         setMapArticle(id, new Article(id, "чай черный", "чай"));
     }
 
-    private void setMapProduct(UUID id, Product product) {
+    public void clearStorage() {
+        mapProduct.clear();
+        mapArticle.clear();
+    }
+    public void setMapProduct(UUID id, Product product) {
         mapProduct.put(id, product);
     }
 
@@ -60,7 +68,7 @@ public class StorageService {
         return mapArticle.values();
     }
 
-    public Collection<Searchable> getAllSearcheble() {
+    public Collection<Searchable> getAllSearchable() {
         List<Searchable> allList = new ArrayList<>();
         allList.addAll(getMapProduct());
         allList.addAll(getMapArticle());
