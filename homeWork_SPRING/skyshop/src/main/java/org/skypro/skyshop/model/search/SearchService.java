@@ -16,7 +16,7 @@ public class SearchService {
     }
 
     public Collection<SearchResult> search(String pattern) {
-        Collection<Searchable> searchableItems = storageService.getAllSearcheble();
+        Collection<Searchable> searchableItems = storageService.getAllSearchable();
         return searchableItems.stream()
                 .filter(item -> item.getSearchTerm().toLowerCase().contains(pattern.toLowerCase()))
                 .map(SearchResult::fromSearchable)
